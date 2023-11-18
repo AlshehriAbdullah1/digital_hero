@@ -1,3 +1,5 @@
+import 'package:digital_hero/features/auth/views/login_view.dart';
+import 'package:digital_hero/features/home/views/home_view.dart';
 import 'package:digital_hero/theme/app_theme.dart';
 import 'package:digital_hero/theme/app_theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class MyApp extends ConsumerWidget {
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
-
+  final logged = false;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // bool = ref.watch(appThemeProvider);
@@ -44,12 +46,13 @@ class MyHomePage extends ConsumerWidget {
               ))
         ],
       ),
-      body: Container(
-        child: Switch(
-          value: ref.watch(appThemeProvider.notifier).isLight(),
-          onChanged: (value) {},
-        ),
-      ),
+      body: logged ? const LoginView() : const HomeView(),
     );
   }
 }
+
+
+
+
+/*
+      */
