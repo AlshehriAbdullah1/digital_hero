@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "114229835311",
+    "project_id": "digital-hero-6dc20",
+    "storage_bucket": "digital-hero-6dc20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114229835311:android:6b10478e77bfaa2499f8da",
+        "android_client_info": {
+          "package_name": "com.example.digital_hero"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJbCBNwzW2KrCb03Y1ozOWJPhDZAATkr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
+import 'package:digital_hero/features/auth/controller/auth_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-
+import 'package:digital_hero/features/auth/views/login_view.dart';
 import '../constants/constansts.dart';
 
 import '../theme/app_theme_provider.dart';
@@ -42,7 +43,11 @@ class App_Drawer extends ConsumerWidget {
                 'Sign out',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              onTap: () {},
+              onTap: () async {
+                AuthController.instance.signOut();
+                Navigator.pushReplacement(context, LoginView.route());
+                print('signed out! ');
+              },
             ),
           ),
           Divider(

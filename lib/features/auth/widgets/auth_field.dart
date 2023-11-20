@@ -6,17 +6,20 @@ class AuthField extends StatelessWidget {
       required this.controller,
       required this.hintText,
       required this.label,
-      this.keyboardType});
+      this.keyboardType,
+      this.validator});
   final TextEditingController controller;
   final String hintText;
   final String label;
   final TextInputType? keyboardType;
-
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
+      obscureText: label == 'Password' ? true : false,
       decoration: InputDecoration(
         labelText: label,
         focusedBorder: OutlineInputBorder(
