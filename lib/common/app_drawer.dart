@@ -45,6 +45,7 @@ class App_Drawer extends ConsumerWidget {
               ),
               onTap: () async {
                 AuthController.instance.signOut();
+                //what if the stack has more than 1 page?
                 Navigator.pushReplacement(context, LoginView.route());
                 print('signed out! ');
               },

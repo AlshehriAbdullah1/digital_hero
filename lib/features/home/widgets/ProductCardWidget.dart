@@ -1,5 +1,7 @@
+import 'package:digital_hero/features/cart/controller/basket_provider.dart';
 import 'package:digital_hero/features/home/controller/products_provider.dart';
-import 'package:digital_hero/models/products.dart';
+import 'package:digital_hero/models/basket.dart';
+import 'package:digital_hero/models/product.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_ecommerce/controllers/itembag_controller.dart';
 // import 'package:flutter_ecommerce/controllers/product_controller.dart';
@@ -36,12 +38,20 @@ class ProductCardWidget extends ConsumerWidget {
         children: [
           Expanded(
             child: Container(
-              width: double.infinity,
               margin: const EdgeInsets.all(12),
-              color: Colors.grey,
-              child: Image.network(
-                product.imageUrl,
-                fit: BoxFit.fill,
+              width: MediaQuery.of(context).size.width * 1,
+              child: AspectRatio(
+                aspectRatio: 3 / 4, // Adjust the aspect ratio as needed
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 214, 214, 214),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
             ),
           ),
@@ -60,7 +70,7 @@ class ProductCardWidget extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                '${product.description}',
+                '${product.shortDisc}',
                 // product[productIndex].shortDescription,
                 style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
@@ -75,39 +85,49 @@ class ProductCardWidget extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 12),
                   ),
-                  // IconButton(
-                  //   onPressed: () {
-                  //     // ref.read(proudctNotifierProvider.notifier).isSelectItem(
-                  //     //     product[productIndex].pid, productIndex);
+                  IconButton(
+                    onPressed: () {
+                      ref.read(basketProvider.notifier).addProductToBasket(
+                            BasketProduct(
+                              id: product.id,
+                              name: product.title,
+                              quantity:
+                                  1, // You can set the default quantity here.
+                              price: product.price,
+                            ),
+                          );
+                      // ref.read(proudctNotifierProvider.notifier).isSelectItem(
+                      //     product[productIndex].pid, productIndex);
 
-                  //     // // Itemka ayuu ku darayaa baga
-                  //     // if (product[productIndex].isSelected == false) {
-                  //     //   ref.read(itemBagProvider.notifier).addNewItemBag(
-                  //     //         ProductModel(
-                  //     //             pid: product[productIndex].pid,
-                  //     //             imgUrl: product[productIndex].imgUrl,
-                  //     //             title: product[productIndex].title,
-                  //     //             price: product[productIndex].price,
-                  //     //             shortDescription:
-                  //     //                 product[productIndex].shortDescription,
-                  //     //             longDescription:
-                  //     //                 product[productIndex].longDescription,
-                  //     //             review: product[productIndex].review,
-                  //     //             rating: product[productIndex].rating),
-                  //     //       );
-                  //     // } else {
-                  //     //   ref
-                  //     //       .read(itemBagProvider.notifier)
-                  //     //       .removeItem(product[productIndex].pid);
-                  //     // }
-                  //   },
-                  //   // icon: Icon(
-                  //   //   product[productIndex].isSelected
-                  //   //       ? Icons.check_circle
-                  //   //       : Icons.add_circle,
-                  //   //   size: 30,
-                  //   // ),
-                  // )
+                      // // Itemka ayuu ku darayaa baga
+                      // if (product[productIndex].isSelected == false) {
+                      //   ref.read(itemBagProvider.notifier).addNewItemBag(
+                      //         ProductModel(
+                      //             pid: product[productIndex].pid,
+                      //             imgUrl: product[productIndex].imgUrl,
+                      //             title: product[productIndex].title,
+                      //             price: product[productIndex].price,
+                      //             shortDescription:
+                      //                 product[productIndex].shortDescription,
+                      //             longDescription:
+                      //                 product[productIndex].longDescription,
+                      //             review: product[productIndex].review,
+                      //             rating: product[productIndex].rating),
+                      //       );
+                      // } else {
+                      //   ref
+                      //       .read(itemBagProvider.notifier)
+                      //       .removeItem(product[productIndex].pid);
+                      // }
+                    },
+                    icon: Icon(
+                      // product[productIndex].isSelected
+                      //     ? Icons.check_circle
+                      //     :
+                      Icons.add_circle,
+                      size: 30,
+                    ),
+                  )
                 ],
               )
             ]),

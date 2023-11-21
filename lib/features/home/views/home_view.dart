@@ -1,10 +1,11 @@
+import 'package:digital_hero/common/app_Bar.dart';
 import 'package:digital_hero/common/app_drawer.dart';
 import 'package:digital_hero/constants/constansts.dart';
 import 'package:digital_hero/features/home/controller/products_provider.dart';
 import 'package:digital_hero/features/home/widgets/ProductCardWidget.dart';
 import 'package:digital_hero/features/home/widgets/chip_widget.dart';
 import 'package:digital_hero/features/home/widgets/commercialContianer.dart';
-import 'package:digital_hero/models/products.dart';
+import 'package:digital_hero/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:digital_hero/theme/app_theme_provider.dart';
@@ -22,18 +23,7 @@ class HomeView extends ConsumerWidget {
 
     return Scaffold(
       drawer: const App_Drawer(),
-      appBar: AppBar(
-        title: digitalHeroLogo,
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                shoppingCartIcon,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ))
-        ],
-      ),
+      appBar: CustomAppBar(),
       body: Column(
         children: [
           const CommercialContianer(),
@@ -79,17 +69,26 @@ class HomeView extends ConsumerWidget {
             loading: () => const CircularProgressIndicator(),
             error: (error, stackTrace) => Text('Error: $error'),
             data: (products) {
+              if (products.isEmpty) {
+                return Center(
+                  child: Text('No products available'),
+                );
+              }
+
               return Container(
                 padding: const EdgeInsets.all(4),
                 width: double.infinity,
-                height: 300,
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(4),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
+                  ),
                   itemCount: products.length,
-                  scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      ProductCardWidget(product: products[index]),
+                  itemBuilder: (context, index) {
+                    return ProductCardWidget(product: products[index]);
+                  },
                 ),
               );
             },

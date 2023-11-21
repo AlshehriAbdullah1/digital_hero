@@ -8,6 +8,7 @@ class Product {
   final double price;
   final String imageUrl;
   final String category;
+  final String shortDisc;
   double rating;
   Product({
     required this.id,
@@ -16,6 +17,7 @@ class Product {
     required this.price,
     required this.imageUrl,
     required this.category,
+    required this.shortDisc,
     this.rating = 0.0,
   });
 
@@ -32,6 +34,7 @@ class Product {
       rating: (json['rating'] is int)
           ? (json['rating'] as int).toDouble()
           : json['rating'],
+      shortDisc: json['shortDisc'] ?? '',
     );
   }
 }
