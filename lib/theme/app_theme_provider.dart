@@ -48,7 +48,7 @@ final ThemeData lightTheme = ThemeData.light().copyWith(
 
   colorScheme: ColorScheme(
     brightness: Brightness.light,
-    secondary: Color(0xff6A2B52),
+    secondary: Color(0xff843667),
     primary: Color(0xff192739),
     // secondary: const Color(0xff6A2B52),
 

@@ -7,3 +7,11 @@ final digitalHeroLogo = Image.asset(
   width: 100,
 );
 final drawerAvatar = Image.asset('assets/images/drawer_avatar.png');
+
+final offersImage = Image.asset('assets/images/Offers.png');
+final controllersOffersImage = Image.asset(
+  'assets/images/controller_offers.png',
+  // fit: BoxFit.contain,
+  width: 20,
+  height: 20,
+);
