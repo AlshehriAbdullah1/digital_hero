@@ -6,6 +6,7 @@ class BasketProduct {
   final String id;
   final String name;
   int quantity;
+  final String shortDisc;
   final double price;
 
   BasketProduct({
@@ -13,6 +14,7 @@ class BasketProduct {
     required this.name,
     required this.quantity,
     required this.price,
+    required this.shortDisc,
   });
 }
 

@@ -12,16 +12,27 @@ class BasketNotifier extends StateNotifier<Basket> {
 
   // Add a product to the basket
   void addProductToBasket(BasketProduct product) {
-    print('adding item to basket');
-    state = Basket(products: [...state.products, product]);
+    if (productIsInBasket(product.id)) {
+      updateProductQuantity(product.id, product.quantity + 1);
+    } else {
+      state = Basket(products: [...state.products, product]);
+    }
+  }
+
+  bool productIsInBasket(String productId) {
+    return state.products.any((product) => product.id == productId);
   }
 
   // Remove a product from the basket by ID
-  void removeProductFromBasket(String productId) {
-    state = Basket(
-        products: state.products
-            .where((product) => product.id != productId)
-            .toList());
+  void removeProductFromBasket(BasketProduct product) {
+    if (productIsInBasket(product.id) && product.quantity > 1) {
+      updateProductQuantity(product.id, product.quantity - 1);
+    } else {
+      state = Basket(
+          products: state.products
+              .where((product) => product.id != product.id)
+              .toList());
+    }
   }
 
   // Update quantity of a product in the basket

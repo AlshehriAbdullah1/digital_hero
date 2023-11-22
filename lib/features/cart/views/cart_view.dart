@@ -47,6 +47,7 @@ class CartView extends ConsumerWidget {
                     child: Container(
                       color: Colors.white,
                       width: double.infinity,
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -65,25 +66,55 @@ class CartView extends ConsumerWidget {
                                   Text(
                                     product.name,
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 60, 244, 54),
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   const SizedBox(height: 6),
                                   Text(
-                                    product.name,
+                                    product.shortDisc,
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 60, 244, 54),
-                                    ),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 14),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     '${product.price}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  print('remove item clicked');
+                                  ref
+                                      .watch(basketProvider.notifier)
+                                      .updateProductQuantity(
+                                          product.id, product.quantity - 1);
+                                },
+                                icon: const Icon(Icons.remove_circle_outline),
+                              ),
+                              Text('${product.quantity}'),
+                              IconButton(
+                                onPressed: () {
+                                  print('add item clicked');
+                                  ref
+                                      .watch(basketProvider.notifier)
+                                      .updateProductQuantity(
+                                          product.id, product.quantity + 1);
+                                },
+                                icon: const Icon(Icons.control_point),
+                              ),
+                            ],
                           )
                         ],
                       ),
