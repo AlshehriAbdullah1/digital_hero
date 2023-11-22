@@ -98,8 +98,7 @@ class CartView extends ConsumerWidget {
                                   print('remove item clicked');
                                   ref
                                       .watch(basketProvider.notifier)
-                                      .updateProductQuantity(
-                                          product.id, product.quantity - 1);
+                                      .removeProductFromBasket(product);
                                 },
                                 icon: const Icon(Icons.remove_circle_outline),
                               ),
@@ -202,10 +201,10 @@ class CartView extends ConsumerWidget {
                       ],
                     ),
                     const Divider(),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Total:',
                           style: TextStyle(
                             fontSize: 18,
@@ -214,8 +213,8 @@ class CartView extends ConsumerWidget {
                           ),
                         ),
                         Text(
-                          '500',
-                          style: TextStyle(
+                          '${ref.watch(basketProvider.notifier).getTotalPrice()} \$',
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 60, 244, 54),

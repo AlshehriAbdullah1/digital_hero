@@ -12,6 +12,7 @@ class BasketNotifier extends StateNotifier<Basket> {
 
   // Add a product to the basket
   void addProductToBasket(BasketProduct product) {
+    print('adding product with id ${product.id}');
     if (productIsInBasket(product.id)) {
       updateProductQuantity(product.id, product.quantity + 1);
     } else {
@@ -44,5 +45,13 @@ class BasketNotifier extends StateNotifier<Basket> {
       }
       return product;
     }).toList());
+  }
+
+  double getTotalPrice() {
+    double totalPrice = 0;
+    for (var product in state.products) {
+      totalPrice += product.price * product.quantity;
+    }
+    return totalPrice;
   }
 }
