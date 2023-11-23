@@ -11,24 +11,41 @@ final basketProvider = StateNotifierProvider<BasketNotifier, Basket>((ref) {
 class BasketNotifier extends StateNotifier<Basket> {
   BasketNotifier(Basket state) : super(state);
 
+  String appliedCouponCode = '';
   // Add a product to the basket
-  void addProductToBasket(BasketProduct product) {
+  void addProductToBasket(Product product) {
     print('adding product with id ${product.id}');
-    if (productIsInBasket(product.id)) {
-      updateProductQuantity(product.id, product.quantity + 1);
+    if (_productIsInBasket(product.id)) {
+      addProductQuantity(product.id);
     } else {
-      state = Basket(products: [...state.products, product]);
+      BasketProduct newProduct = BasketProduct(
+          id: product.id,
+          name: product.title,
+          price: product.price,
+          shortDisc: product.shortDisc,
+          imageUrl: product.imageUrl);
+      state = Basket(products: [...state.products, newProduct]);
     }
   }
 
-  bool productIsInBasket(String productId) {
+  void addProductQuantity(String productId) {
+    state = Basket(
+        products: state.products.map((product) {
+      if (product.id == productId) {
+        product.quantity = product.quantity + 1;
+      }
+      return product;
+    }).toList());
+  }
+
+  bool _productIsInBasket(String productId) {
     return state.products.any((product) => product.id == productId);
   }
 
-  // Remove a product from the basket by ID
+  // Remove a product from the basket
   void removeProductFromBasket(BasketProduct product) {
-    if (productIsInBasket(product.id) && product.quantity > 1) {
-      updateProductQuantity(product.id, product.quantity - 1);
+    if (_productIsInBasket(product.id) && product.quantity > 1) {
+      removeProductQuantity(product.id);
     } else {
       state = Basket(
           products: state.products
@@ -37,8 +54,59 @@ class BasketNotifier extends StateNotifier<Basket> {
     }
   }
 
+  void removeOrDecreaseProduct(Product product) {
+    final productId = product.id;
+    final productQuantity = getProductQuantity(productId);
+
+    if (productQuantity > 1) {
+      removeProductQuantity(productId);
+    } else if (productQuantity == 1) {
+      state = Basket(
+        products: state.products
+            .where((basketProduct) => basketProduct.id != productId)
+            .toList(),
+      );
+    } else {
+      return;
+    }
+  }
+
+  void removeProductFromBasketById(String productId) {
+    state = Basket(
+        products: state.products
+            .where((basketProduct) => basketProduct.id != productId)
+            .toList());
+  }
+  // void removeProductQuantityById(String productId) {
+  //   state = Basket(
+  //       products: state.products
+  //           .map((basketProduct) {
+  //              if( basketProduct.id == productId){
+  //               if(basketProduct.quantity==1 ){
+
+  //               }
+  //               else{
+  //             basketProduct.quantity = basketProduct.quantity-1;}
+
+  //           }
+
+  //           return basketProduct  ;
+  //           })
+  //           .toList());
+  // }
+
+  void removeProductQuantity(String productId) {
+    state = Basket(
+        products: state.products.map((product) {
+      if (product.id == productId) {
+        product.quantity = product.quantity - 1;
+      }
+      return product;
+    }).toList());
+  }
+
   // Update quantity of a product in the basket
-  void updateProductQuantity(String productId, int newQuantity) {
+  void _updateProductQuantity(String productId, int newQuantity) {
     state = Basket(
         products: state.products.map((product) {
       if (product.id == productId) {
@@ -53,7 +121,8 @@ class BasketNotifier extends StateNotifier<Basket> {
     for (var product in state.products) {
       totalPrice += product.price * product.quantity;
     }
-    return totalPrice;
+    final discount = applyCouponDiscount(appliedCouponCode);
+    return totalPrice - discount;
   }
 
   int getProductQuantity(String productId) {
@@ -76,8 +145,10 @@ class BasketNotifier extends StateNotifier<Basket> {
 
   double applyCouponDiscount(String couponCode) {
     if (couponCode == "DISCOUNT10") {
-      return 0.1;
+      appliedCouponCode = couponCode;
+      return getTotalPrice() * 0.1;
     } else {
+      appliedCouponCode = '';
       return 0;
     }
   }

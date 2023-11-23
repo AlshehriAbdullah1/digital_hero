@@ -12,7 +12,7 @@ class BasketProduct {
   BasketProduct({
     required this.id,
     required this.name,
-    required this.quantity,
+     this.quantity=1,
     required this.price,
     required this.shortDisc,
     required this.imageUrl,

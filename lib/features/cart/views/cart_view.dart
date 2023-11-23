@@ -8,28 +8,14 @@ class CartView extends ConsumerWidget {
   static route() => MaterialPageRoute(
         builder: (context) => CartView(),
       );
-
+  TextEditingController _couponController = TextEditingController();
   CartView({super.key});
-  List<Map<String, dynamic>> itemBag = [
-    {
-      'title': 'Laptop',
-      'shortDescription': 'HP 15s',
-      'price': 500,
-      'isSelected': false,
-    },
-    {
-      'title': 'Smartphone',
-      'shortDescription': 'iPhone 13',
-      'price': 1200,
-      'isSelected': false,
-    },
-    // Add more items as needed
-  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final basket = ref.watch(basketProvider);
     return Scaffold(
+      // resizeToAvoidBottomInset: true, //
       appBar: CustomAppBar(
         title: 'Orders',
       ),
@@ -106,8 +92,7 @@ class CartView extends ConsumerWidget {
                                 onPressed: () {
                                   ref
                                       .watch(basketProvider.notifier)
-                                      .updateProductQuantity(
-                                          product.id, product.quantity + 1);
+                                      .addProductQuantity(product.id);
                                 },
                                 icon: const Icon(Icons.control_point),
                               ),
@@ -126,141 +111,124 @@ class CartView extends ConsumerWidget {
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    const Text(
-                      'Have a coupon code? enter here',
-                      style: TextStyle(
-                        color: Color(0xff8D969F),
-                        fontSize: 14,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Divider(
+                        thickness: 1,
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          width: 1,
-                          color: const Color(0xffD9D9D9),
+                      const Text(
+                        'Have a coupon code? enter here',
+                        style: TextStyle(
+                          color: Color(0xff8D969F),
+                          fontSize: 14,
                         ),
                       ),
-                      child: Row(
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            width: 1,
+                            color: const Color(0xffD9D9D9),
+                          ),
+                        ),
+                        child: TextField(
+                          controller:
+                              _couponController, // TextEditingController for the TextField
+                          decoration: InputDecoration(
+                            labelText: 'Enter Coupon Code',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'FDS2023',
+                          Text(
+                            'Delivery Fee:',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            child: const Row(
-                              children: [
-                                Text(
-                                  'Available',
-                                  style: TextStyle(
-                                      color: const Color(0xff3AC6A5),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(width: 15),
-                                Icon(
-                                  Icons.check_circle,
-                                  color: Color(0xff3AC6A5),
-                                )
-                              ],
+                          Text(
+                            'Free',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Discount:',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'No discount',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total:',
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          ),
+                          Text(
+                            '${ref.watch(basketProvider.notifier).getTotalPrice().toStringAsFixed(2)} \$',
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Delivery Fee:',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Free',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Discount:',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'No discount',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total:',
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                        Text(
-                          '${ref.watch(basketProvider.notifier).getTotalPrice().toStringAsFixed(2)} \$',
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 5),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.secondary),
-                          onPressed: () {},
-                          child: Text(
-                            'Continue To Checkout',
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 22,
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 5),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 15),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.secondary),
+                            onPressed: () {},
+                            child: Text(
+                              'Continue To Checkout',
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 22,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondary),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ))
         ],

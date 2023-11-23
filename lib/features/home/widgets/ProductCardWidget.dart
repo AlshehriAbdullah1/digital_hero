@@ -87,17 +87,9 @@ class ProductCardWidget extends ConsumerWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      ref.read(basketProvider.notifier).addProductToBasket(
-                            BasketProduct(
-                              id: product.id,
-                              name: product.title,
-                              quantity:
-                                  1, // You can set the default quantity here.
-                              price: product.price,
-                              shortDisc: product.shortDisc,
-                              imageUrl: product.imageUrl,
-                            ),
-                          );
+                      ref
+                          .read(basketProvider.notifier)
+                          .addProductToBasket(product);
                       // ref.read(proudctNotifierProvider.notifier).isSelectItem(
                       //     product[productIndex].pid, productIndex);
 

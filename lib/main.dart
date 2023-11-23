@@ -39,7 +39,7 @@ class MyApp extends ConsumerWidget {
           } else {
             // If a user is logged in, navigate to the HomeView, else navigate to the LoginView
             final bool isLoggedIn = snapshot.hasData;
-            return isLoggedIn ? const HomeView() : const LoginView();
+            return isLoggedIn ? HomeView() : const LoginView();
           }
         },
       ),

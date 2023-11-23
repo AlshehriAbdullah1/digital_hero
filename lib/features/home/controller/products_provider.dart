@@ -10,11 +10,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:digital_hero/models/product.dart'; // Import your Product model
 
 final productListProvider = FutureProvider<List<Product>>((ref) async {
+  //get the selected filter if any
+
   try {
     // Access the 'products' collection in Firestore
+    // fetch the data based on selected filters, if 'All' is selected then fetch all of products
+    // else fetch products based on selected filter
+    QuerySnapshot<Map<String, dynamic>> snapshot;
 
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await FirebaseFirestore.instance.collection('products').get();
+    snapshot = await FirebaseFirestore.instance.collection('products').get();
+
+    // QuerySnapshot<Map<String, dynamic>> snapshot =
+    //     await FirebaseFirestore.instance.collection('products').get();
 
     List<Product> products = [];
 
@@ -38,4 +45,15 @@ Product productFromJson(Map<String, dynamic> json) {
   return Product.fromJson(json);
 }
 
-final selectedFilterProvider = StateProvider<String>((ref) => 'All');
+final selectedFilterProvider =
+    StateNotifierProvider<SelectedFilterNotifier, String>((ref) {
+  return SelectedFilterNotifier();
+});
+
+class SelectedFilterNotifier extends StateNotifier<String> {
+  SelectedFilterNotifier() : super('All');
+
+  void setFilter(String filter) {
+    state = filter;
+  }
+}

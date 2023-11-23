@@ -11,17 +11,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:digital_hero/theme/app_theme_provider.dart';
 
-class HomeView extends ConsumerWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const HomeView(),
+// ignore: must_be_immutable
+class HomeView extends ConsumerStatefulWidget {
+  static Route<dynamic> route() => MaterialPageRoute(
+        builder: (context) => HomeView(),
       );
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView> {
+  String selectedFilter = 'All';
+
+  void changeFilter(String filter) {
+    setState(() {
+      selectedFilter = filter;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final AsyncValue<List<Product>> productsList =
         ref.watch(productListProvider);
-
     return Scaffold(
       drawer: const App_Drawer(),
       appBar: CustomAppBar(),
@@ -34,17 +47,43 @@ class HomeView extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               children: [
-                ChipWidget(label: 'All'),
+                InkWell(
+                  onTap: () {
+                    changeFilter('All');
+                    // ref.read(selectedFilterProvider.notifier).setFilter('All');
+                  },
+                  child: const ChipWidget(label: 'All'),
+                ),
                 InkWell(
                     onTap: () {
-                      print('tapped');
+                      changeFilter('PSN Games');
                     },
-                    child: ChipWidget(label: 'PSN Games')),
-                ChipWidget(label: 'Xbox Games'),
-                ChipWidget(label: 'PC Games'),
-                ChipWidget(label: 'Softwares'),
-                ChipWidget(label: 'Subscriptions'),
-                ChipWidget(label: 'Others'),
+                    child: const ChipWidget(label: 'PSN Games')),
+                InkWell(
+                    onTap: () {
+                      changeFilter('Xbox Games');
+                    },
+                    child: const ChipWidget(label: 'Xbox Games')),
+                InkWell(
+                    onTap: () {
+                      changeFilter('PC Games');
+                    },
+                    child: const ChipWidget(label: 'PC Games')),
+                InkWell(
+                    onTap: () {
+                      changeFilter('Softwares');
+                    },
+                    child: const ChipWidget(label: 'Softwares')),
+                InkWell(
+                    onTap: () {
+                      changeFilter('Subscriptions');
+                    },
+                    child: const ChipWidget(label: 'Subscriptions')),
+                InkWell(
+                    onTap: () {
+                      changeFilter('Others');
+                    },
+                    child: const ChipWidget(label: 'Others')),
               ],
             ),
           ),
@@ -71,39 +110,48 @@ class HomeView extends ConsumerWidget {
             error: (error, stackTrace) => Text('Error: $error'),
             data: (products) {
               if (products.isEmpty) {
-                return Center(
+                return const Center(
                   child: Text('No products available'),
                 );
               }
-              // final selectedFilter = ref.watch(selectedFilterProvider);
-              // final filterValue = selectedFilter.data?.value ?? 'All';
+              List<Product> filteredProducts = [];
 
-              // // Filter products based on the selected filter value
-              // final filteredProducts = filterValue == 'All'
-              //     ? products // Show all products if the filter is 'All'
-              //     : products
-              //         .where((product) => product.category == filterValue)
-              //         .toList();
+              // Filter products based on selected filter
+              if (selectedFilter == 'All') {
+                filteredProducts = products;
+              } else {
+                filteredProducts = products
+                    .where((product) => product.category == selectedFilter)
+                    .toList();
+              }
 
-              return Container(
-                padding: const EdgeInsets.all(4),
-                width: double.infinity,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4.0,
-                    mainAxisSpacing: 4.0,
+              if (filteredProducts.isEmpty) {
+                return const Center(child: Text('No products available'));
+              }
+
+              return Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  width: double.infinity,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0,
+                    ),
+                    itemCount: filteredProducts.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                          onTap: () {
+                            Navigator.push(context,
+                                ProductView.route(filteredProducts[index]));
+                          },
+                          child: ProductCardWidget(
+                              product: filteredProducts[index]));
+                    },
                   ),
-                  itemCount: products.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context, ProductView.route(products[index]));
-                        },
-                        child: ProductCardWidget(product: products[index]));
-                  },
                 ),
               );
             },
@@ -113,34 +161,3 @@ class HomeView extends ConsumerWidget {
     );
   }
 }
-
-
-
-/* Scaffold(
-                  drawer: App_Drawer(),
-                  appBar: AppBar(
-                    title: digitalHeroLogo,
-                    centerTitle: true,
-                    actions: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            shoppingCartIcon,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ))
-                    ],
-                  ),
-                  body: const HomeView(),
-                ) */
-
-
-
-
-
-/*Switch(
-        value: ref.watch(appThemeProvider.notifier).isLight(),
-        onChanged: (value) {
-          ref.read(appThemeProvider.notifier).changeTheme();
-        },
-      ),
-      */

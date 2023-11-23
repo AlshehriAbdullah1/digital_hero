@@ -1,5 +1,7 @@
 import 'package:digital_hero/common/app_Bar.dart';
 import 'package:digital_hero/features/cart/controller/basket_provider.dart';
+import 'package:digital_hero/features/product/widgets/add_to_cart.dart';
+import 'package:digital_hero/models/basket.dart';
 import 'package:digital_hero/models/product.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -38,8 +40,11 @@ class ProductView extends ConsumerWidget {
               children: [
                 Text(
                   product.title,
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 24),
                 ),
                 const SizedBox(
                   height: 10,
@@ -77,19 +82,33 @@ class ProductView extends ConsumerWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                Text(product.description),
+                Text(
+                  product.description,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(product.price.toString() * productQuantity),
+                    Text(
+                      '  \$${product.price.toString()}',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 20),
+                    ),
                     Row(
                       children: [
                         IconButton(
                           onPressed: () {
                             print('remove item clicked');
-                            // ref
-                            //     .watch(basketProvider.notifier)
-                            //     .removeProductFromBasket(product);
+                            ref
+                                .watch(basketProvider.notifier)
+                                .removeOrDecreaseProduct(product);
                           },
                           icon: const Icon(Icons.remove_circle_outline),
                         ),
@@ -98,6 +117,9 @@ class ProductView extends ConsumerWidget {
                         IconButton(
                           onPressed: () {
                             print('add item clicked');
+                            ref
+                                .watch(basketProvider.notifier)
+                                .addProductToBasket(product);
                             // ref
                             //     .watch(basketProvider.notifier)
                             //     .updateProductQuantity(
@@ -108,7 +130,8 @@ class ProductView extends ConsumerWidget {
                       ],
                     )
                   ],
-                )
+                ),
+                AddToCartBtn(product: product),
               ],
             ),
           )
