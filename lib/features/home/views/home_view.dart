@@ -5,6 +5,7 @@ import 'package:digital_hero/features/home/controller/products_provider.dart';
 import 'package:digital_hero/features/home/widgets/ProductCardWidget.dart';
 import 'package:digital_hero/features/home/widgets/chip_widget.dart';
 import 'package:digital_hero/features/home/widgets/commercialContianer.dart';
+import 'package:digital_hero/features/product/views/product_view.dart';
 import 'package:digital_hero/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,6 +75,15 @@ class HomeView extends ConsumerWidget {
                   child: Text('No products available'),
                 );
               }
+              // final selectedFilter = ref.watch(selectedFilterProvider);
+              // final filterValue = selectedFilter.data?.value ?? 'All';
+
+              // // Filter products based on the selected filter value
+              // final filteredProducts = filterValue == 'All'
+              //     ? products // Show all products if the filter is 'All'
+              //     : products
+              //         .where((product) => product.category == filterValue)
+              //         .toList();
 
               return Container(
                 padding: const EdgeInsets.all(4),
@@ -87,7 +97,12 @@ class HomeView extends ConsumerWidget {
                   itemCount: products.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return ProductCardWidget(product: products[index]);
+                    return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context, ProductView.route(products[index]));
+                        },
+                        child: ProductCardWidget(product: products[index]));
                   },
                 ),
               );

@@ -2,7 +2,7 @@
 //this is mock data
 
 class Product {
-  final String id;
+  String id = '';
   final String title;
   final String description;
   final double price;
@@ -38,106 +38,3 @@ class Product {
     );
   }
 }
-
-// List<Product> productsList = [
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '1',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '2',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '3',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '4',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '5',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '6',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '7',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '8',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '1',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-//   Product(
-//     title: 'Product1',
-//     description: 'Lorem30',
-//     price: 20.0,
-//     imageUrl:
-//         'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-//     id: '1',
-//     category: 'Electronics',
-//     rating: 0.0,
-//   ),
-// ];

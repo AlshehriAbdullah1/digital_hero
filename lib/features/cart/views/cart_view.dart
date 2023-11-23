@@ -43,6 +43,7 @@ class CartView extends ConsumerWidget {
                 itemCount: basket.products.length,
                 itemBuilder: (context, index) {
                   final product = basket.products[index];
+
                   return Card(
                     child: Container(
                       color: Colors.white,
@@ -52,8 +53,7 @@ class CartView extends ConsumerWidget {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Image.network(
-                                'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'),
+                            child: Image.network('${product.imageUrl}'),
                           ),
                           Expanded(
                             flex: 3,
@@ -95,7 +95,6 @@ class CartView extends ConsumerWidget {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  print('remove item clicked');
                                   ref
                                       .watch(basketProvider.notifier)
                                       .removeProductFromBasket(product);
@@ -105,7 +104,6 @@ class CartView extends ConsumerWidget {
                               Text('${product.quantity}'),
                               IconButton(
                                 onPressed: () {
-                                  print('add item clicked');
                                   ref
                                       .watch(basketProvider.notifier)
                                       .updateProductQuantity(
@@ -126,11 +124,21 @@ class CartView extends ConsumerWidget {
           Expanded(
               flex: 1,
               child: Container(
-                padding: const EdgeInsets.all(12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Have a coupon code? enter here'),
+                    const Divider(
+                      thickness: 1,
+                    ),
+                    const Text(
+                      'Have a coupon code? enter here',
+                      style: TextStyle(
+                        color: Color(0xff8D969F),
+                        fontSize: 14,
+                      ),
+                    ),
                     const SizedBox(height: 12),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -139,7 +147,7 @@ class CartView extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           width: 1,
-                          color: const Color.fromARGB(255, 60, 244, 54),
+                          color: const Color(0xffD9D9D9),
                         ),
                       ),
                       child: Row(
@@ -148,7 +156,7 @@ class CartView extends ConsumerWidget {
                           const Text(
                             'FDS2023',
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           Container(
                             child: const Row(
@@ -156,13 +164,15 @@ class CartView extends ConsumerWidget {
                                 Text(
                                   'Available',
                                   style: TextStyle(
-                                      color: const Color.fromARGB(
-                                          255, 60, 244, 54),
+                                      color: const Color(0xff3AC6A5),
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(height: 5),
-                                Icon(Icons.check_circle)
+                                SizedBox(width: 15),
+                                Icon(
+                                  Icons.check_circle,
+                                  color: Color(0xff3AC6A5),
+                                )
                               ],
                             ),
                           ),
@@ -176,12 +186,12 @@ class CartView extends ConsumerWidget {
                         Text(
                           'Delivery Fee:',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Free',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -191,36 +201,64 @@ class CartView extends ConsumerWidget {
                         Text(
                           'Discount:',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'No discount',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
-                    const Divider(),
+                    const Divider(
+                      thickness: 1,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Total:',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 60, 244, 54),
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                         Text(
-                          '${ref.watch(basketProvider.notifier).getTotalPrice()} \$',
-                          style: const TextStyle(
-                            fontSize: 18,
+                          '${ref.watch(basketProvider.notifier).getTotalPrice().toStringAsFixed(2)} \$',
+                          style: TextStyle(
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 60, 244, 54),
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 5),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 15),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.secondary),
+                          onPressed: () {},
+                          child: Text(
+                            'Continue To Checkout',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 22,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

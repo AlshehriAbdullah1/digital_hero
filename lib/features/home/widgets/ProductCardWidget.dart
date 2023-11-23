@@ -95,6 +95,7 @@ class ProductCardWidget extends ConsumerWidget {
                                   1, // You can set the default quantity here.
                               price: product.price,
                               shortDisc: product.shortDisc,
+                              imageUrl: product.imageUrl,
                             ),
                           );
                       // ref.read(proudctNotifierProvider.notifier).isSelectItem(

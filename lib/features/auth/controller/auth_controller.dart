@@ -6,12 +6,12 @@ class AuthController {
   AuthController._();
 
   static final AuthController _instance = AuthController._();
-
+  String? userName;
   static AuthController get instance => _instance;
   void signOut() {
     FirebaseAuth.instance.signOut();
   }
-  
+
   Future<String?> signUp(
       String email, String password, String name, String phoneNumber) async {
     try {
@@ -27,6 +27,7 @@ class AuthController {
         'phoneNumber': phoneNumber,
         // Add more fields as needed
       });
+      userName = name;
       // If successful, you can add the user to the database and user model
 
       return 'Success'; // Return success message
@@ -41,11 +42,22 @@ class AuthController {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      String? uid = userCredential.user?.uid;
+      DocumentSnapshot<Map<String, dynamic>> userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      String? userNameFromFirestore = userDoc.data()?['name'];
+
+      // Update the userName in AuthController with the user's name from Firestore
+      userName = userNameFromFirestore;
+      return 'Success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
       }
     }
-    return 'Success';
+  }
+
+  String getUserName() {
+    return userName ?? 'Unknown';
   }
 }

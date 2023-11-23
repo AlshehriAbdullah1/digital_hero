@@ -1,5 +1,6 @@
 // Provider to manage the basket state
 import 'package:digital_hero/models/basket.dart';
+import 'package:digital_hero/models/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final basketProvider = StateNotifierProvider<BasketNotifier, Basket>((ref) {
@@ -31,7 +32,7 @@ class BasketNotifier extends StateNotifier<Basket> {
     } else {
       state = Basket(
           products: state.products
-              .where((product) => product.id != product.id)
+              .where((basketProduct) => basketProduct.id != product.id)
               .toList());
     }
   }
@@ -53,5 +54,31 @@ class BasketNotifier extends StateNotifier<Basket> {
       totalPrice += product.price * product.quantity;
     }
     return totalPrice;
+  }
+
+  int getProductQuantity(String productId) {
+    for (var product in state.products) {
+      if (product.id == productId) {
+        return product.quantity;
+      }
+    }
+    return 0;
+  }
+
+  double getProductPrice(String productId) {
+    for (var product in state.products) {
+      if (product.id == productId) {
+        return product.price;
+      }
+    }
+    return 0;
+  }
+
+  double applyCouponDiscount(String couponCode) {
+    if (couponCode == "DISCOUNT10") {
+      return 0.1;
+    } else {
+      return 0;
+    }
   }
 }

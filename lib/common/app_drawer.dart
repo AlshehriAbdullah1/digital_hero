@@ -26,8 +26,8 @@ class App_Drawer extends ConsumerWidget {
                 //space
 
                 // greeting with name
-                const Text(
-                  'hello <<your name>>',
+                Text(
+                  'hello ${AuthController.instance.getUserName()}',
                   style: TextStyle(color: Colors.white),
                 )
               ],
