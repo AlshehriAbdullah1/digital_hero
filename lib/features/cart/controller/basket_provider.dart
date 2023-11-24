@@ -121,8 +121,8 @@ class BasketNotifier extends StateNotifier<Basket> {
     for (var product in state.products) {
       totalPrice += product.price * product.quantity;
     }
-    final discount = applyCouponDiscount(appliedCouponCode);
-    return totalPrice - discount;
+    final discount = getDiscountAmount();
+    return totalPrice - (discount * totalPrice);
   }
 
   int getProductQuantity(String productId) {
@@ -146,9 +146,18 @@ class BasketNotifier extends StateNotifier<Basket> {
   double applyCouponDiscount(String couponCode) {
     if (couponCode == "DISCOUNT10") {
       appliedCouponCode = couponCode;
-      return getTotalPrice() * 0.1;
+      return 0.1;
     } else {
       appliedCouponCode = '';
+      return 0;
+    }
+  }
+
+  double getDiscountAmount() {
+    if (appliedCouponCode == "DISCOUNT10") {
+      //  appliedCouponCode = couponCode;
+      return 0.1;
+    } else {
       return 0;
     }
   }

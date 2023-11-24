@@ -1,14 +1,40 @@
-// import 'package:digital_hero/models/order.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_hero/models/order.dart' as order_model;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// final orderListProvider = StateProvider<List<Order>>((ref) => []);
+class OrderNotifier {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-// final orderProvider = Provider.family<Order?, String>((ref, orderId) {
-//   final orders = ref.watch(orderListProvider).state;
-//   final order = orders.firstWhereOrNull((order) => order.orderId == orderId);
-//   return order; // Returning nullable Order to handle scenarios where the order is not found
-// });
+  Future<void> placeOrder(order_model.Order order) async {
+    try {
+      // Convert products to a format suitable for Firestore
+      final List<Map<String, dynamic>> formattedProducts = order.products
+          .map((product) => {
+                'productId': product.productId,
+                'name': product.name,
+                'quantity': product.quantity,
+                'price': product.price,
+              })
+          .toList();
 
-// final addOrderProvider = Provider.family<void, Order>((ref, newOrder) {
-//   ref.read(orderListProvider).state = [...ref.read(orderListProvider).state, newOrder];
-// });
+      // Add the order to Firestore
+      await _firestore.collection('orders').add({
+        'orderId': order.orderId,
+        'userId': order.userId,
+        'products': formattedProducts,
+        'totalAmount': order.totalAmount,
+        'orderStatus': order.orderStatus,
+      });
+
+      // Show a success message to the user
+      // ... (same as previous code)
+    } catch (e) {
+      // Handle any errors that occur during order placement
+      print('Error placing order: $e');
+      // Optionally, show an error message to the user
+    }
+  }
+}
+final orderNotifierProvider = Provider<OrderNotifier>((ref) {
+  return OrderNotifier();
+});
