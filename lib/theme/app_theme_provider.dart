@@ -48,17 +48,18 @@ final ThemeData lightTheme = ThemeData.light().copyWith(
 
   colorScheme: ColorScheme(
     brightness: Brightness.light,
-    secondary: Color(0xff843667),
+
     primary: Color(0xff192739),
-    tertiary: Color(0xffF3FAFF),
-    // secondary: const Color(0xff6A2B52),
+    onPrimary: Colors.white,
+
+    secondary: Color(0xff843667),
+    onSecondary: Colors.white,
 
     background: Colors.white,
+    onBackground: Colors.black,
+
     error: Colors.red,
     surface: Colors.grey,
-    onPrimary: Color.fromARGB(255, 255, 255, 255),
-    onSecondary: Colors.white,
-    onBackground: Colors.black,
     onError: Colors.white,
     onSurface: Color(0xff595959),
   ),
@@ -68,6 +69,22 @@ final ThemeData lightTheme = ThemeData.light().copyWith(
 );
 
 final ThemeData darkTheme = ThemeData.dark().copyWith(
-  primaryColor: Colors.deepPurple,
-  brightness: Brightness.dark,
+  colorScheme: ColorScheme(
+    brightness: Brightness.dark,
+
+    primary: Color(0xff192739),
+    onPrimary: Colors.white,
+
+    secondary: Color(0xff843667),
+    onSecondary: Colors.white,
+
+    background: Color(0xff2A2B2C),
+    onBackground: Colors.white,
+
+    error: Colors.red,
+    surface: Color(0xff192739),
+    onError: Colors.white,
+    onSurface: Color(0xff595959),
+
+  ),
 );

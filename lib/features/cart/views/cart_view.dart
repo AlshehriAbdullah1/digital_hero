@@ -23,8 +23,10 @@ class CartView extends ConsumerWidget {
     final basket = ref.watch(basketProvider);
     final loadingState = ref.watch(loadingProvider);
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Orders',
+      appBar: AppBar(
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+        title: Text('Product details', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
       ),
       body: Column(
         children: [
@@ -39,7 +41,7 @@ class CartView extends ConsumerWidget {
 
                   return Card(
                     child: Container(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.background,
                       width: double.infinity,
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
@@ -60,7 +62,7 @@ class CartView extends ConsumerWidget {
                                     product.name,
                                     style: TextStyle(
                                       color:
-                                          Theme.of(context).colorScheme.primary,
+                                          Theme.of(context).colorScheme.onBackground,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -77,7 +79,7 @@ class CartView extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    '${product.price}',
+                                    '${product.price}\$',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -95,6 +97,7 @@ class CartView extends ConsumerWidget {
                                       .removeProductFromBasket(product);
                                 },
                                 icon: const Icon(Icons.remove_circle_outline),
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                               Text('${product.quantity}'),
                               IconButton(
@@ -104,6 +107,7 @@ class CartView extends ConsumerWidget {
                                       .addProductQuantity(product.id);
                                 },
                                 icon: const Icon(Icons.control_point),
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ],
                           )
@@ -134,28 +138,21 @@ class CartView extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          width: 1,
-                          color: const Color(0xffD9D9D9),
-                        ),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(0),
                       child: Row(
                         children: [
-                          Text('ff'),
-                          // TextField(
-                          //   keyboardType: TextInputType.text,
-                          //   controller: _couponController,
-                          //   decoration: const InputDecoration(
-                          //     labelText: 'Enter Coupon Code',
-                          //     border: OutlineInputBorder(),
-                          //   ),
-                          // ),
-                          const SizedBox(width: 12), // Adjust spacing as needed
+                          Expanded(
+                            child: TextField(
+                              controller: _couponController,
+                              decoration: InputDecoration(
+                                hintText: 'Enter code',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                          ),
                           TextButton(
                             onPressed: () {
                               String couponCode = _couponController.text.trim();
@@ -163,10 +160,10 @@ class CartView extends ConsumerWidget {
                                 ref
                                     .read(basketProvider.notifier)
                                     .applyCouponDiscount(
-                                        couponCode.toUpperCase());
+                                    couponCode.toUpperCase());
                               }
-                            },
-                            child: const Text('Apply'),
+                              },
+                            child: Text('Apply', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
                           ),
                         ],
                       ),
