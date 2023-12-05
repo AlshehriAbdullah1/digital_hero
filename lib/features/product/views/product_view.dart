@@ -22,15 +22,17 @@ class ProductView extends ConsumerWidget {
     final basket = ref.watch(basketProvider);
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Product details',
+      appBar: AppBar(
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+        title: Text('Product details', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
       ),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
             height: 300,
             width: double.infinity,
-            color: Theme.of(context).colorScheme.tertiary,
+            color: const Color.fromARGB(255, 214, 214, 214),
             child: Image.network(product.imageUrl),
           ),
           Container(
@@ -94,7 +96,7 @@ class ProductView extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '  \$${product.price.toString()}',
+                      '${product.price.toString()}\$',
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.w400,
@@ -111,6 +113,7 @@ class ProductView extends ConsumerWidget {
                                 .removeOrDecreaseProduct(product);
                           },
                           icon: const Icon(Icons.remove_circle_outline),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         Text(
                             '${ref.watch(basketProvider.notifier).getProductQuantity(product.id)}'),
@@ -126,6 +129,7 @@ class ProductView extends ConsumerWidget {
                             //         product.id, product.quantity + 1);
                           },
                           icon: const Icon(Icons.control_point),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ],
                     )

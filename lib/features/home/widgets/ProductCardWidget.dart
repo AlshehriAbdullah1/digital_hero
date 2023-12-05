@@ -22,7 +22,7 @@ class ProductCardWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
@@ -82,7 +82,7 @@ class ProductCardWidget extends ConsumerWidget {
                     // '\$${product[productIndex].price}',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.onBackground,
                         fontSize: 12),
                   ),
                   IconButton(
@@ -120,6 +120,7 @@ class ProductCardWidget extends ConsumerWidget {
                       //     :
                       Icons.add_circle,
                       size: 30,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   )
                 ],
