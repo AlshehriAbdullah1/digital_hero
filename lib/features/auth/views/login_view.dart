@@ -64,7 +64,7 @@ class _LoginViewState extends State<LoginView> {
                       'Hi, Welcome ',
                       style: TextStyle(
                         fontSize: 24,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onBackground,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -114,7 +114,7 @@ class _LoginViewState extends State<LoginView> {
                       text: TextSpan(
                         style: TextStyle(
                           fontSize: 16,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                         children: [
                           const TextSpan(text: 'Don\'t have an account? '),

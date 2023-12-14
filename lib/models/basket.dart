@@ -22,6 +22,7 @@ class BasketProduct {
 // Basket model to manage the list of products in the basket
 class Basket {
   List<BasketProduct> products;
+  final String appliedCouponCode;
 
-  Basket({required this.products});
+  Basket({required this.products, this.appliedCouponCode = ''});
 }
