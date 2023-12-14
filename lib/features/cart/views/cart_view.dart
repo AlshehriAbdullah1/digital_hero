@@ -22,6 +22,7 @@ class CartView extends ConsumerWidget {
     final _couponController = ref.watch(textControllerProvider);
     final basket = ref.watch(basketProvider);
     final loadingState = ref.watch(loadingProvider);
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Orders',
@@ -253,7 +254,8 @@ class CartView extends ConsumerWidget {
 
                                       // Simulate loading for 2-3 seconds
                                       await Future.delayed(
-                                          const Duration(seconds: 2));
+                                        const Duration(seconds: 2),
+                                      );
                                       //ordering logic
                                       // final order = order_model.Order(
                                       //   // Create an order instance with required parameters
