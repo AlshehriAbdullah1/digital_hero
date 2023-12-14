@@ -28,6 +28,10 @@ class BasketNotifier extends StateNotifier<Basket> {
     }
   }
 
+  void clearBasket() {
+    state = Basket(products: []);
+  }
+
   void addProductQuantity(String productId) {
     state = Basket(
         products: state.products.map((product) {
