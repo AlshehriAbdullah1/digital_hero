@@ -94,7 +94,7 @@ class App_Drawer extends ConsumerWidget {
             child: Text(
               Bio,
               style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface, height: 1.5),
+                  color: Theme.of(context).colorScheme.onBackground, height: 1.5),
               maxLines: 10,
 
               overflow: TextOverflow

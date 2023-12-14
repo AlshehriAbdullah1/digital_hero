@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: title == null ? digitalHeroLogo : Text(title!),
+      iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
       centerTitle: true,
       actions: [
         IconButton(
