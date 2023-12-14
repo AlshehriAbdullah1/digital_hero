@@ -261,16 +261,15 @@ class CartView extends ConsumerWidget {
                                       horizontal: 20, vertical: 15),
                                   backgroundColor:
                                       Theme.of(context).colorScheme.secondary),
-                              onPressed: loadingState
+                              onPressed: () async =>[ loadingState
                                   ? null
                                   : () async {
                                       ref.read(loadingProvider.notifier).state =
                                           true;
 
                                       // Simulate loading for 2-3 seconds
-                                      await Future.delayed(
-                                        const Duration(seconds: 2),
-                                      );
+  await Future.delayed(const Duration(seconds: 2));
+
                                       //ordering logic
                                       // final order = order_model.Order(
                                       //   // Create an order instance with required parameters
@@ -316,7 +315,13 @@ class CartView extends ConsumerWidget {
                                       //       .read(loadingProvider.notifier)
                                       //       .state = false;
                                       // }
-                                    },
+                                    }, await Future.delayed(
+                              const Duration(seconds: 2)),
+                  ref.read(basketProvider.notifier).clearBasket(),
+
+                  Navigator.pop(context),
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Order placed successfully!'),
+                       duration: Duration(seconds: 2),))],
                               child: Text(
                                 'Continue To Checkout',
                                 style: TextStyle(
