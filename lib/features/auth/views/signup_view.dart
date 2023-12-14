@@ -75,7 +75,7 @@ class _SignUpViewState extends State<SignUpView> {
                           'Create an account ',
                           style: TextStyle(
                             fontSize: 24,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.onBackground,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

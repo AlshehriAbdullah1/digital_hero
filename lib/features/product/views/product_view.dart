@@ -123,10 +123,6 @@ class ProductView extends ConsumerWidget {
                             ref
                                 .watch(basketProvider.notifier)
                                 .addProductToBasket(product);
-                            // ref
-                            //     .watch(basketProvider.notifier)
-                            //     .updateProductQuantity(
-                            //         product.id, product.quantity + 1);
                           },
                           icon: const Icon(Icons.control_point),
                           color: Theme.of(context).colorScheme.secondary,

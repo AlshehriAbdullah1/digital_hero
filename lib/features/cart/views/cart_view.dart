@@ -200,7 +200,25 @@ class CartView extends ConsumerWidget {
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '%${(1 * 100).toStringAsFixed(2)} \$',
+                                '${(ref.watch(basketProvider.notifier).getDiscountAmount()) * 100} \%',
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          thickness: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Subtracted amount:',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '- ${(ref.watch(basketProvider.notifier).getSubAmount())} \$',
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),

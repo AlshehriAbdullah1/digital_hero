@@ -125,6 +125,15 @@ class BasketNotifier extends StateNotifier<Basket> {
     return totalPrice - (discount * totalPrice);
   }
 
+  double getSubAmount(){
+    double totalPrice = 0;
+    for (var product in state.products) {
+      totalPrice += product.price * product.quantity;
+    }
+    final discount = getDiscountAmount();
+    return (discount * totalPrice);
+  }
+
   int getProductQuantity(String productId) {
     for (var product in state.products) {
       if (product.id == productId) {
@@ -146,12 +155,17 @@ class BasketNotifier extends StateNotifier<Basket> {
   double applyCouponDiscount(String couponCode) {
     if (couponCode == "DISCOUNT10") {
       appliedCouponCode = couponCode;
+      // The following line is updating the state and notifying listeners automatically
+      state = Basket(products: state.products, appliedCouponCode: appliedCouponCode);
       return 0.1;
     } else {
       appliedCouponCode = '';
+      // The following line is updating the state and notifying listeners automatically
+      state = Basket(products: state.products, appliedCouponCode: appliedCouponCode);
       return 0;
     }
   }
+
 
   double getDiscountAmount() {
     if (appliedCouponCode == "DISCOUNT10") {
