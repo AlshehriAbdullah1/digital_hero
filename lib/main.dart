@@ -11,7 +11,7 @@ import 'constants/constansts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-//Group 12
+//Group 3
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
