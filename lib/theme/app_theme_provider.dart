@@ -64,8 +64,7 @@ final ThemeData lightTheme = ThemeData.light().copyWith(
     onSurface: Color(0xff595959),
   ),
 
-  // secondaryHeaderColor: const Color(0xff6A2B52),
-  // brightness: Brightness.light,
+
 );
 
 final ThemeData darkTheme = ThemeData.dark().copyWith(

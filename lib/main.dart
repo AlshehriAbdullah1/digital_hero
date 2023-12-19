@@ -11,6 +11,7 @@ import 'constants/constansts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+//Group 12
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -46,66 +47,3 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
-
-// class MyHomePage extends ConsumerWidget {
-//   MyHomePage({super.key});
-//   final logged = false;
-//   final FirebaseAuth _auth = FirebaseAuth.instance;
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     // bool = ref.watch(appThemeProvider);
-//     return FutureBuilder(
-//       future: _auth.authStateChanges().first,
-//       builder: (context, AsyncSnapshot<User?> snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           // Show a loading indicator or splash screen if authentication state is loading
-//           return CircularProgressIndicator(); // Or any other loading widget
-//         } else {
-//           // If a user is logged in, navigate to the HomeView, else navigate to the LoginView
-//           final bool isLoggedIn = snapshot.hasData;
-//           return isLoggedIn
-//               ? 
-//               : LoginView();
-//         }
-//       },
-//     );
-//   }
-// }
-
-
-
-
-// 
-
-
- /*return FutureBuilder(
-      future: _auth.authStateChanges().first,
-      builder: (context, AsyncSnapshot<User?> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // Show a loading indicator or splash screen if authentication state is loading
-          return CircularProgressIndicator(); // Or any other loading widget
-        } else {
-          // If a user is logged in, navigate to the HomeView, else navigate to the LoginView
-          final bool isLoggedIn = snapshot.hasData;
-          return isLoggedIn
-              ? Scaffold(
-                  drawer: App_Drawer(),
-                  appBar: AppBar(
-                    title: digitalHeroLogo,
-                    centerTitle: true,
-                    actions: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            shoppingCartIcon,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ))
-                    ],
-                  ),
-                  body: const HomeView(),
-                )
-              : LoginView();
-        }
-      },
-    );
-      */

@@ -26,8 +26,12 @@ class CartView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-        title: Text('Product details', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+        iconTheme:
+            IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+        title: Text(
+          'Product details',
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
       ),
       body: Column(
         children: [
@@ -62,8 +66,9 @@ class CartView extends ConsumerWidget {
                                   Text(
                                     product.name,
                                     style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.onBackground,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -161,10 +166,14 @@ class CartView extends ConsumerWidget {
                                 ref
                                     .read(basketProvider.notifier)
                                     .applyCouponDiscount(
-                                    couponCode.toUpperCase());
+                                        couponCode.toUpperCase());
                               }
-                              },
-                            child: Text('Apply', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+                            },
+                            child: Text('Apply',
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary)),
                           ),
                         ],
                       ),
@@ -200,7 +209,7 @@ class CartView extends ConsumerWidget {
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                                '${(ref.watch(basketProvider.notifier).getDiscountAmount()) * 100} \%',
+                              '${(ref.watch(basketProvider.notifier).getDiscountAmount()) * 100} \%',
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
@@ -261,67 +270,76 @@ class CartView extends ConsumerWidget {
                                       horizontal: 20, vertical: 15),
                                   backgroundColor:
                                       Theme.of(context).colorScheme.secondary),
-                              onPressed: () async =>[ loadingState
-                                  ? null
-                                  : () async {
-                                      ref.read(loadingProvider.notifier).state =
-                                          true;
+                              onPressed: () async => [
+                                loadingState
+                                    ? null
+                                    : () async {
+                                        ref
+                                            .read(loadingProvider.notifier)
+                                            .state = true;
 
-                                      // Simulate loading for 2-3 seconds
-  await Future.delayed(const Duration(seconds: 2));
+                                        // Simulate loading for 2-3 seconds
+                                        await Future.delayed(
+                                            const Duration(seconds: 2));
 
-                                      //ordering logic
-                                      // final order = order_model.Order(
-                                      //   // Create an order instance with required parameters
+                                        //ordering logic
+                                        // final order = order_model.Order(
+                                        //   // Create an order instance with required parameters
 
-                                      //   userId: 'your_user_id',
-                                      //   products: [], // Add the products to the order here
-                                      //   totalAmount:
-                                      //       0.0, // Set the total amount
-                                      //   orderStatus:
-                                      //       'pending', // Set the initial status
-                                      // );
+                                        //   userId: 'your_user_id',
+                                        //   products: [], // Add the products to the order here
+                                        //   totalAmount:
+                                        //       0.0, // Set the total amount
+                                        //   orderStatus:
+                                        //       'pending', // Set the initial status
+                                        // );
 
-                                      // try {
-                                      //   // Place the order using the OrderNotifier
-                                      //   await ref
-                                      //       .read(orderNotifierProvider)
-                                      //       .placeOrder(order);
+                                        // try {
+                                        //   // Place the order using the OrderNotifier
+                                        //   await ref
+                                        //       .read(orderNotifierProvider)
+                                        //       .placeOrder(order);
 
-                                      //   // Show a success message to the user
-                                      //   ScaffoldMessenger.of(context)
-                                      //       .showSnackBar(
-                                      //     const SnackBar(
-                                      //       content: Text(
-                                      //           'Order placed successfully!'),
-                                      //       duration: Duration(seconds: 2),
-                                      //     ),
-                                      //   );
-                                      //   Navigator.of(context).pop();
-                                      // } catch (e) {
-                                      //   // Handle order placement failure
-                                      //   ScaffoldMessenger.of(context)
-                                      //       .showSnackBar(
-                                      //     SnackBar(
-                                      //       content:
-                                      //           Text('Failed to place order!'),
-                                      //       duration:
-                                      //           const Duration(seconds: 2),
-                                      //     ),
-                                      //   );
-                                      // } finally {
-                                      //   // Update the loading state
-                                      //   ref
-                                      //       .read(loadingProvider.notifier)
-                                      //       .state = false;
-                                      // }
-                                    }, await Future.delayed(
-                              const Duration(seconds: 2)),
-                  ref.read(basketProvider.notifier).clearBasket(),
-
-                  Navigator.pop(context),
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Order placed successfully!'),
-                       duration: Duration(seconds: 2),))],
+                                        //   // Show a success message to the user
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(
+                                        //     const SnackBar(
+                                        //       content: Text(
+                                        //           'Order placed successfully!'),
+                                        //       duration: Duration(seconds: 2),
+                                        //     ),
+                                        //   );
+                                        //   Navigator.of(context).pop();
+                                        // } catch (e) {
+                                        //   // Handle order placement failure
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(
+                                        //     SnackBar(
+                                        //       content:
+                                        //           Text('Failed to place order!'),
+                                        //       duration:
+                                        //           const Duration(seconds: 2),
+                                        //     ),
+                                        //   );
+                                        // } finally {
+                                        //   // Update the loading state
+                                        //   ref
+                                        //       .read(loadingProvider.notifier)
+                                        //       .state = false;
+                                        // }
+                                      },
+                                await Future.delayed(
+                                    const Duration(seconds: 2)),
+                                ref.read(basketProvider.notifier).clearBasket(),
+                                Navigator.pop(context),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Order placed successfully!'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                ),
+                             
+                              ],
                               child: Text(
                                 'Continue To Checkout',
                                 style: TextStyle(

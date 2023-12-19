@@ -25,16 +25,13 @@ class OrderNotifier {
         'totalAmount': order.totalAmount,
         'orderStatus': order.orderStatus,
       });
-
-      // Show a success message to the user
-      // ... (same as previous code)
     } catch (e) {
-      // Handle any errors that occur during order placement
       print('Error placing order: $e');
       // Optionally, show an error message to the user
     }
   }
 }
+
 final orderNotifierProvider = Provider<OrderNotifier>((ref) {
   return OrderNotifier();
 });

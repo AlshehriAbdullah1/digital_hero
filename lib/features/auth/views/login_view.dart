@@ -57,88 +57,90 @@ class _LoginViewState extends State<LoginView> {
             ? const CircularProgressIndicator()
             : Form(
                 key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Hi, Welcome ',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: AuthField(
-                        label: 'Email',
-                        controller: emailController,
-                        hintText: 'example@example.com',
-                        validator: (value) {
-                          if (!value!.contains('@')) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: AuthField(
-                        label: 'Password',
-                        controller: passwordController,
-                        hintText: 'must be at least 6 characters',
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  _onLogin();
-                                }
-                              },
-                              child: const Text('Login'))),
-                    ),
-
-                    RichText(
-                      text: TextSpan(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Hi, Welcome ',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 24,
                           color: Theme.of(context).colorScheme.onBackground,
+                          fontWeight: FontWeight.bold,
                         ),
-                        children: [
-                          const TextSpan(text: 'Don\'t have an account? '),
-                          WidgetSpan(
-                              child: InkWell(
-                                  onTap: () {
-                                    Navigator.pushReplacement(
-                                        context, SignUpView.route());
-                                  },
-                                  child: const Text(
-                                    'Sign up',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blue),
-                                  ))),
-                        ],
                       ),
-                    ),
-                    // GestureDetector(
-                    //   child: const Chip(
-                    //     label: Text('Login'),
-                    //   ),
-                    // )
-                  ],
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: AuthField(
+                          label: 'Email',
+                          controller: emailController,
+                          hintText: 'example@example.com',
+                          validator: (value) {
+                            if (!value!.contains('@')) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: AuthField(
+                          label: 'Password',
+                          controller: passwordController,
+                          hintText: 'must be at least 6 characters',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _onLogin();
+                                  }
+                                },
+                                child: const Text('Login'))),
+                      ),
+
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.onBackground,
+                          ),
+                          children: [
+                            const TextSpan(text: 'Don\'t have an account? '),
+                            WidgetSpan(
+                                child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushReplacement(
+                                          context, SignUpView.route());
+                                    },
+                                    child: const Text(
+                                      'Sign up',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue),
+                                    ))),
+                          ],
+                        ),
+                      ),
+                      // GestureDetector(
+                      //   child: const Chip(
+                      //     label: Text('Login'),
+                      //   ),
+                      // )
+                    ],
+                  ),
                 ),
               ),
       ),
